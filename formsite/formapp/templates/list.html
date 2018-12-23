@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  {% load bootstrap3 %}
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-12">
+        <nav class="navbar navbar-dark bg-dark">
+          <ol class="breadcrumb">
+            <li aria-current="page"><a href="/dashboard">Home</a></li>
+            <li aria-current="page"><a href="/listaction">Questions</a></li>
+            <div class="text-right">
+             <a  href="/login">Logout</a>
+          </div>
+          </ol>
+        </nav>
+      </div>
+    {% for qns in tasks1 %}
+    <div class="row">
+        <div class="col-xs-12">
+          <div class="text-left">
+              <label class="text-secondary">Question {{qns.idform}} :</label>
+              <h4 class="text-danger">{{qns.question}}</h4>
+          </div>
+        </div>
+    </div>     
+          <div class="col-xs-12">
+           <form class="form-horizonal" action="/listaction/" method="post">
+            {% csrf_token %}
+              <fieldset>
+                  <input type="hidden" name="idform_id" value="{{qns.idform}}">
+                  <div class="row">
+                    <div class="col-xs-4">                     
+                      <label>Enter Your Answer :</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      {{ ansform.answer }}
+                    </div>                    
+                  </div>
+                  <input class="btn btn-secondary" type="submit" name="submit" value="submit">
+              </fieldset>
+            </form>   
+         </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="text-center">
+              <label class="text-dark">Answers :</label>
+              <ul>
+                {% for ans in tasks2 %}
+            {% if qns.idform == ans.idform_id %}
+                <div class="col-xs-6 col-xs-offset-3">
+                  <li><h4 class="text-info">{{ans.answer}}</h4></li>
+                  </div>
+              </ul>              
+            {% endif %}
+          {% endfor %}
+      {% endfor %}
+      {% if  tasks1.paginator.num_pages != 1 %}
+
+                <nav>
+                    <ul class="pagination">
+                        {% if tasks1.has_previous %}
+                        <li>
+                            <a href="?page=1">&laquo; First</a>
+                        </li>   
+                        <li>
+                            <a href="?page={{ tasks.previous_page_number }}">Previous</a>
+                        </li>   
+                        {% endif %}
+
+                        <li>
+                            <span>
+                                {{ tasks1.number }} Of {{ tasks1.paginator.num_pages }}
+                            </span>
+                        </li>   
+
+                        {% if tasks1.has_next %}
+                        <li>
+                            <a href="?page={{ tasks1.next_page_number }}">Next</a>
+                        </li>   
+                        <li>
+                            <a href="?page={{ tasks1.paginator.num_pages }}">Last &raquo;</a>
+                        </li>   
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+         </div>
+        </div>
+      </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  {% load bootstrap3 %}
+    <div class="container">
+      <div class="row">
+      <div class="col-xs-12">
+        <nav class="breadcrumb">
+          <ol class="breadcrumb">
+            <li aria-current="page"><a href="#">Home</a></li>
+            <li aria-current="page"><a href="/listaction">Questions</a></li>
+            <div class="text-right">
+             <a  href="/login">Logout</a>
+          </div>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+                {% if messages %}
+                  {% for message in messages %}
+                   {% if message.tags %}
+                        <div class="text-{{ message.tags }}">{{ message }}</div>
+                   {% endif %}
+                  {% endfor %}
+                {% endif %}
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text-center">
+          <form class="form-horizonal" action="/dashboard/" method="post">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-4">
+                  <label class="control-label" for="question">Questions :</label>
+                </div>
+              </div>
+              <div class="row">             
+              <div class="col-xs-8">
+                {{ form.question }}
+              </div>
+              </div> 
+              </div>
+              <div class="row">
+              <div class="col-xs-10">
+                <input class="btn btn-primary" type="submit" name="submit" value="submit">
+              </div>
+              </div>
+          </form>
+          </div>
+          </div>
+          <div class="row">
+             <div class="col-xs-4">
+              
+             </div>
+          </div>
+      </div>
+    </div>
+</body>
+</html>

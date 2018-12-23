@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+
+{{question.question}}
+{{question.id}}
+
+<form action="/submit-answer/{{question.id}}">
+	<textarea></textarea>
+</form>
+</body>
+</html>
+
+view()
+
+id
+question_from_db = Question.obj.get(id=id)
+
+ans_ob = Ansewr(answer= answer_from_form,questionfiles=question_from_db)
+ans_ob.save()
